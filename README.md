@@ -2,7 +2,7 @@
 # Codedman Playground clone
 
 ## Description
-Codedamn Playground Clone is a web application that allows users to create projects and use an online IDE to edit or run their code. It features auto-scaling capabilities according to the load, ensuring optimal performance, and each user will have a separate environment for running their code, guaranteeing isolation and security.
+Advance IDE is a web application that allows users to create projects and use an online IDE to edit or run their code. It features auto-scaling capabilities according to the load, ensuring optimal performance, and each user will have a separate environment for running their code, guaranteeing isolation and security.
 
 
 ![Alt Text](./system_design.png)

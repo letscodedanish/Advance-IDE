@@ -1,0 +1,59 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String  @id @default(cuid())
+  name       String
+  email      String? @unique
+  userId     String  @unique
+  profileUrl String
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  Projects Projects[]
+}
+
+model PlayGrounds {
+  id String @id @default(cuid())
+
+  language     String
+  descripition String
+  iconUrl      String
+  baseCodeUri  String?
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  Projects Projects[]
+}
+
+model Projects {
+  id String @id @default(cuid())
+
+  title String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [userId])
+
+  playGroundId String
+  playGround   PlayGrounds @relation(fields: [playGroundId], references: [id])
+
+  terminalUrl String?
+  outputUrl   String?
+
+  isRunning Boolean
+  fileUrl   String
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  @@index([userId])
+  @@index([playGroundId])
+}

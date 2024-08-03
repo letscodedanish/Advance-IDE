@@ -13,6 +13,10 @@ const httpServer = createServer(app);
 initWs(httpServer);
 initHttp(app);
 
+app.get("/health", (req, res) => {
+  res.send("Backend is healthy");
+});
+
 const port = process.env.PORT || 3001;
 httpServer.listen(port, () => {
   console.log(`listening on *:${port}`);

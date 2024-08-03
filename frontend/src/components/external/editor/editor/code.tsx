@@ -32,6 +32,14 @@ export const Code = ({ selectedFile, socket }: { selectedFile: File | undefined,
         language={language}
         value={code}
         theme="vs-dark"
+        options={{
+          padding: { top: 30 },
+          inlineSuggest: true,
+          fontSize: "18px",
+          formatOnType: true,
+          autoClosingBrackets: true,
+          minimap: { scale: 1 }
+        }}
         // @ts-ignore
         onChange={debounce((value) => {
           // Should send diffs, for now sending the whole file

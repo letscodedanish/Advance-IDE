@@ -90,7 +90,7 @@ export const CodingPage = () => {
     }
 
     return (
-        <div> 
+        <div className='bg-black text-white'> 
         {/* <Navbar /> */}
         <Container>
             

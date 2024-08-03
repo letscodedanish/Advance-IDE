@@ -72,7 +72,8 @@ export const Editor = ({
   socket: Socket;
 }) => {
   const [fileList, setFileList] = useState(files);
-  const rootDir = useMemo(() => buildFileTree(files), [files]);
+  let rootDir = useMemo(() => buildFileTree(files), [files]);
+// const [rootDir, setRootDir] = useState(useMemo(() => buildFileTree(files), [files]));
   const [repositoryLink, setRepositoryLink] = useState("");
   const [newItemName, setNewItemName] = useState("");
   const [showInput, setShowInput] = useState(false);
@@ -93,6 +94,25 @@ export const Editor = ({
       return;
     }
     socket.emit("createFile", newItemName);
+    socket.on("fileCreated", (newItemName) => {
+      const tempNewFile = {
+        type: "file",
+        name: newItemName.name,
+        path: `/${newItemName.name}`,
+      }
+      
+      
+      // setFileList((prevFiles: RemoteFile[]) => [
+      //   ...prevFiles,
+      //   tempNewFile as RemoteFile,
+      // ]);
+      const newFileList = [...fileList , tempNewFile as any ];
+      const tempRootDir = buildFileTree(newFileList)
+      //setRootDir(tempRootDir)      
+
+    });
+    
+    
     setNewItemName("");
     setShowInput(false);
   };
@@ -113,6 +133,16 @@ export const Editor = ({
       return;
     }
     socket.emit("deleteItem", selectedFile.path);
+    socket.on("fileDeleted", (deletedPath) => {
+      setFileList((prevFiles) =>
+        prevFiles.filter((file) => file.path !== deletedPath)
+      );
+      console.log("Deleted", deletedPath);
+      if (selectedFile && selectedFile.path === deletedPath) {
+        onSelect(undefined as any);
+      }
+    }
+    );
   };
 
   const handleRename = () => {

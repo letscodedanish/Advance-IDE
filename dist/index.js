@@ -15,6 +15,9 @@ app.use((0, cors_1.default)());
 const httpServer = (0, http_1.createServer)(app);
 (0, ws_1.initWs)(httpServer);
 (0, http_2.initHttp)(app);
+app.get("/health", (req, res) => {
+    res.send("Backend is healthy");
+});
 const port = process.env.PORT || 3001;
 httpServer.listen(port, () => {
     console.log(`listening on *:${port}`);

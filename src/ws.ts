@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { Server as HttpServer } from "http";
 import { fetchS3Folder, saveToS3 } from "./aws";
 import path from "path";
-import { fetchDir, fetchFileContent, saveFile, createFile, createFolder, deleteItem, renameItem, watchDirRecursive } from "./fs";
+import { fetchDir, fetchFileContent, saveFile, createFile, createFolder, deleteItem, renameItem } from "./fs";
 import { TerminalManager } from "./pty";
 import { exec } from 'child_process';
 

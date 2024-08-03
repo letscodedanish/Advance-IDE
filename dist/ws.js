@@ -42,11 +42,6 @@ function initWs(httpServer) {
         socket.emit("loaded", {
             rootContent: yield (0, fs_1.fetchDir)(localDir, "")
         });
-        // Initialize file watcher
-        (0, fs_1.watchDirRecursive)(localDir, socket, (dir) => __awaiter(this, void 0, void 0, function* () {
-            const files = yield (0, fs_1.fetchDir)(dir, localDir);
-            socket.emit("updateFileTree", files);
-        }));
         initHandlers(socket, replId);
         console.log("user connected");
     }));
@@ -148,11 +143,13 @@ function initHandlers(socket, replId) {
         const codeDirectory = path_1.default.join(__dirname, `../tmp/${replId}`);
         const tempGitRepo = path_1.default.join(__dirname, `../tempGitRepo`);
         try {
+            // Ensure the tempGitRepo directory exists
+            yield fs.ensureDir(tempGitRepo);
             // Initialize or reinitialize the temporary Git repository
             const git = simpleGit(tempGitRepo);
             yield git.init();
-            // Clear out any existing files in the temporary Git repository
-            yield git.raw(['rm', '-rf', '*']);
+            // Remove all files in the temporary Git repository
+            yield fs.emptyDir(tempGitRepo);
             // Copy the code from the code directory to the temporary Git repository
             yield copyDirectory(codeDirectory, tempGitRepo);
             // Commit the code changes

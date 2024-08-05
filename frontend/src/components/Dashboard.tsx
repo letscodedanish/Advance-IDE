@@ -68,12 +68,12 @@ export const Dashboard = ({socket}: {socket: Socket}) => {
         );
     }
 
-    const handleLanguage = async (lang: string) => {
-        setLoaded(true);
-        await axios.post(`${SERVICE_URL}/project`, { replId, language: lang });
-        navigate(`/coding/?replId=${replId}`);
-        setLoaded(false);
-    };
+    // const handleLanguage = async (lang: string) => {
+    //     setLoaded(true);
+    //     await axios.post(`${SERVICE_URL}/project`, { replId, language: lang });
+    //     navigate(`/coding/?replId=${replId}`);
+    //     setLoaded(false);
+    // };
 
     return (
         <div className="bg-gray-50 h-screen w-screen flex flex-col">

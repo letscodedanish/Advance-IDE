@@ -34,10 +34,10 @@ export const Code = ({ selectedFile, socket }: { selectedFile: File | undefined,
         theme="vs-dark"
         options={{
           padding: { top: 30 },
-          inlineSuggest: true,
-          fontSize: "18px",
+          inlineSuggest: { enabled: true },
+          fontSize: 18,
           formatOnType: true,
-          autoClosingBrackets: true,
+          autoClosingBrackets: 'always',
           minimap: { scale: 1 }
         }}
         // @ts-ignore
